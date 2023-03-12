@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  color: #334155;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, Helvetica, Arial, メイリオ, Meiryo, sans-serif !important;
+}
+
+.container {
+  max-width: 1320px;
+  width: 100%;
+  padding: 12px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+h1 {
+  color: #1e293b;
+}
+
+p {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-weight: 400;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, Helvetica, Arial, メイリオ, Meiryo, sans-serif !important;
+  font-size: 1rem!important;
+  line-height: 1.5rem;
+  letter-spacing: .03125em!important;
+}
+
