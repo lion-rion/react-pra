@@ -29,3 +29,7 @@ p {
   letter-spacing: .03125em!important;
 }
 
+
+textarea {
+  resize: none;
+}
