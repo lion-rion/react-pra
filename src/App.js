@@ -1,12 +1,16 @@
 import './App.css';
+import { useState } from 'react';
 import Header from './components/Header';
 import TypeSwitch from './components/TypeSwitch';
 
 function App() {
 
+  const[indent,setIndent]= useState(2);
+  const[type,setType]= useState("yaml");
+
   //変換
   const convert = () => {
-    console.log("call");
+    console.log(indent,type);
     // const yamlString = YAML.stringify(data[0], options);
     // console.log(yamlString);
     // setYaml(yamlString);
@@ -25,11 +29,13 @@ function App() {
         <div class="py-8 px-4 px-sm-6 px-lg-7 px-xl-10 rounded border bg-slate-50">
           <div class="flex">
               <TypeSwitch 
+                setIndent={setIndent}
                 name="インデント"
                 item1="2"
                 item2="4"
               />
               <TypeSwitch 
+                setIndent={setType}
                 name="タイプ"
                 item1="YAML"
                 item2="JSON"
