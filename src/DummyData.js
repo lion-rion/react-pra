@@ -1,22 +1,40 @@
-import React from 'react'
+import { v4 as uuidv4 } from "uuid";
 
-const  DummyData =  
+const  DummyData =  [
   {
-    id: 1,
-    title: "📝今からやること",
-    tasks: [
+      id: uuidv4(),
+      title: "📝今からやること",
+      tasks: [
       {
-        host: 1,
+          id: uuidv4(),
+          title: "散歩",
+      },
+      ],
+  },
+  {
+      id: uuidv4(),
+      title: "🚀今後やること",
+      tasks: [
+      {
+          id: uuidv4(),
+          title: "コーディング",
       },
       {
-        name: "sleep",
-        time: 900,
+          id: uuidv4(),
+          title: "転職活動",
       },
+      ],
+  },
+  {
+      id: uuidv4(),
+      title: "🌳終わったこと",
+      tasks: [
       {
-        id: 1,
-        title: "散歩",
+          id: uuidv4(),
+          title: "読書",
       },
-    ],
-  };
+      ],
+  },
+];
 
 export default DummyData
