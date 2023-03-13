@@ -26,15 +26,8 @@ function App() {
 
     //別のカラムに移動したとき
     if (source.droppableId !== destination.droppableId) {
-      const sourceColIndex = data.findIndex((e) => e.name === source.droppableId);
-      const destColIndex = data.findIndex((e) => e.name === destination.droppableId);
-
-
-      /*
-      同じnameを入れたときはエラーが出るようにする
-      */
-
-
+      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
+      const destColIndex = data.findIndex((e) => e.id === destination.droppableId);
 
       const sourceCol = data[sourceColIndex];
       const destCol = data[destColIndex];
@@ -48,11 +41,12 @@ function App() {
       //タスクを追加
       destTask.splice(destination.index, 0, removed);
 
+      data[sourceColIndex].tasks = sourceTask;
       data[destColIndex].tasks = destTask;
       setData(data);
     } else {
       //同じカラム内でのタスクの入れ替え
-      const sourceColIndex = data.findIndex((e) => e.name === source.droppableId);
+      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
 
       const sourceCol = data[sourceColIndex];
 
@@ -73,10 +67,10 @@ function App() {
   const convert = () => {
     console.log(indent, type);
     if (type === "YAML") {
-      const yamlString = YAML.stringify(DummyData[0], {indent: Number(indent)});
+      const yamlString = YAML.stringify(DummyData, {indent: Number(indent)});
       target.value = yamlString;
     } else if (type === "JSON") {
-      const jsonString = JSON.stringify(DummyData[0], null, Number(indent));
+      const jsonString = JSON.stringify(DummyData, null, Number(indent));
       target.value = jsonString;
     }
   };
@@ -115,44 +109,26 @@ function App() {
               </button>
             </div>
             <div class="flex">
-              <DragDropContext onDragEnd={onDragEnd}>
-                  {data.map((section) => (
-                    <Droppable key={section.name} droppableId={section.name}>
-                      {(provided) => (
-                        <div class="basis-1/2 ">
-                        <p class="font-bold mt-10 ml-5">{section.name}</p>
-                        <div class="mt-6 mr-2 py-8 px-4 px-sm-6 px-lg-7 px-xl-10 rounded border bg-white"
-                          ref={provided.innerRef}
-                          {...provided.droppableProps}
-                        >
-                          {section.tasks.map((task, index) => (
-                              <Draggable
-                                key={task.name}
-                                draggableId={task.name}
-                                index={index}
-                              >
-                                {(provided, snapshot) => (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    style={{
-                                      ...provided.draggableProps.style,
-                                      opacity: snapshot.isDragging ? "0.5" : "1",
-                                    }}
-                                  >
-                                    <Card>{task.title}</Card>
-                                  </div>
-                                )}
-                              </Draggable>
-                            ))}
-                            {provided.placeholder}
-                          </div>
-                        </div>
-                      )}
-                    </Droppable>
-                  ))}
-              </DragDropContext>
+                  <DragDropContext onDragEnd={onDragEnd}>
+                      {data.map((section) => (
+                        <Droppable key={section.id} droppableId={section.id}>
+                          {(provided) => (
+                            
+                            <div class="basis-1/2 ">
+                            <div class="mt-6 mr-2 py-8 px-4 px-sm-6 px-lg-7 px-xl-10 rounded border bg-white"
+                              ref={provided.innerRef}
+                              {...provided.droppableProps}
+                            >
+                              <div className="trello-section-content">
+                                
+                                {provided.placeholder}
+                              </div>
+                              </div>
+                            </div>
+                          )}
+                        </Droppable>
+                      ))}
+                  </DragDropContext>
             </div>
             <div class="mx-auto max-w-2xl">
               <p class="font-bold mt-10 ml-5">✅ 出力スペース</p>

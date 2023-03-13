@@ -1,40 +1,65 @@
-import { v4 as uuidv4 } from "uuid";
 
-const  DummyData =  [
+const DummyData = [
   {
-      id: uuidv4(),
-      title: "📝今からやること",
-      tasks: [
+    name: "✏️ 入力スペース",
+    tasks: [
       {
-          id: uuidv4(),
-          title: "散歩",
+        name: "b",
+        title: "散歩",
       },
-      ],
+    ],
   },
   {
-      id: uuidv4(),
-      title: "🚀今後やること",
-      tasks: [
+    name: "⚠️ 電源操作",
+    tasks: [
       {
-          id: uuidv4(),
-          title: "コーディング",
+        name: "d",
+        title: "読書",
       },
       {
-          id: uuidv4(),
-          title: "転職活動",
+        name: "e",
+        title: "aaa",
       },
-      ],
+      {
+        name: "f",
+        title: "bbb",
+      },
+    ],
   },
   {
-      id: uuidv4(),
-      title: "🌳終わったこと",
-      tasks: [
+    name: "⚡️ インストール",
+    tasks: [
       {
-          id: uuidv4(),
-          title: "読書",
+        name: "d",
+        title: "読書",
       },
-      ],
+      {
+        name: "e",
+        title: "aaa",
+      },
+      {
+        name: "f",
+        title: "bbb",
+      },
+    ],
+  },
+  {
+    name: "⚙️ 設定",
+    tasks: [
+      {
+        name: "d",
+        title: "読書",
+      },
+      {
+        name: "e",
+        title: "aaa",
+      },
+      {
+        name: "f",
+        title: "bbb",
+      },
+    ],
   },
 ];
 
-export default DummyData
+export default DummyData;
