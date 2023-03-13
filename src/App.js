@@ -23,7 +23,8 @@ function App() {
   /**
    *  ここからDnDの設定
    */
-  const [data, setData] = useState(DummyData);
+  const js_data = JSON.parse(window.localStorage.getItem("js-data")) ? JSON.parse(window.localStorage.getItem("js-data")) : DummyData;
+  const [data, setData] = useState(js_data);
   const onDragEnd = (result) => {
     const { source, destination } = result;
 
@@ -47,6 +48,7 @@ function App() {
       data[sourceColIndex].tasks = sourceTask;
       data[destColIndex].tasks = destTask;
       setData(data);
+      window.localStorage.setItem("js-data",  JSON.stringify(data));
     } else {
       //同じカラム内でのタスクの入れ替え
       const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
@@ -62,6 +64,8 @@ function App() {
       sourceTask.splice(destination.index, 0, removed);
 
       data[sourceColIndex].tasks = sourceTask;
+
+      window.localStorage.setItem("js-data",  JSON.stringify(data));
     }
   };
 
