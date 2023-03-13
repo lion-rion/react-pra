@@ -9,6 +9,9 @@ import Card from "./components/Card";
 import HowToUse from "./components/HowToUse";
 import BugReport from "./components/BugReport";
 import Footer from "./components/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
 
 function App() {
   const [indent, setIndent] = useState();
@@ -26,15 +29,8 @@ function App() {
 
     //別のカラムに移動したとき
     if (source.droppableId !== destination.droppableId) {
-      const sourceColIndex = data.findIndex((e) => e.name === source.droppableId);
-      const destColIndex = data.findIndex((e) => e.name === destination.droppableId);
-
-
-      /*
-      同じnameを入れたときはエラーが出るようにする
-      */
-
-
+      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
+      const destColIndex = data.findIndex((e) => e.id === destination.droppableId);
 
       const sourceCol = data[sourceColIndex];
       const destCol = data[destColIndex];
@@ -48,11 +44,12 @@ function App() {
       //タスクを追加
       destTask.splice(destination.index, 0, removed);
 
+      data[sourceColIndex].tasks = sourceTask;
       data[destColIndex].tasks = destTask;
       setData(data);
     } else {
       //同じカラム内でのタスクの入れ替え
-      const sourceColIndex = data.findIndex((e) => e.name === source.droppableId);
+      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
 
       const sourceCol = data[sourceColIndex];
 
@@ -65,30 +62,46 @@ function App() {
       sourceTask.splice(destination.index, 0, removed);
 
       data[sourceColIndex].tasks = sourceTask;
-      setData(data);
     }
   };
 
   //変換用スクリプト
   const convert = () => {
-    console.log(indent, type);
+
+    const updatedData = data.map(item => {
+      // `item`オブジェクトのコピーを作成し、`tasks`配列の要素の`id`プロパティを削除する
+      const updatedTasks = item.tasks.map(task => {
+        const { id,icon,tag, ...taskWithoutId } = task;
+        return taskWithoutId;
+      });
+    
+      // 更新されたオブジェクトを返す
+      return {
+        ...item,
+        tasks: updatedTasks
+      };
+    });
+    
+
     if (type === "YAML") {
-      const yamlString = YAML.stringify(DummyData[0], {indent: Number(indent)});
+      const yamlString = YAML.stringify(updatedData[0], {indent: Number(indent)});
       target.value = yamlString;
     } else if (type === "JSON") {
-      const jsonString = JSON.stringify(DummyData[0], null, Number(indent));
+      const jsonString = JSON.stringify(updatedData[0], null, Number(indent));
       target.value = jsonString;
     }
+    //Dmm = Object.assign({}, DummyData[0]);
   };
 
   return (
     <>
+    <head><link href="https://use.fontawesome.com/releases/v6.3.0/css/all.css" rel="stylesheet"/></head>
       <Header />
       <div class="container py-12 mb-10 px-lg-4 px-xl-12 ">
         <section class="my-10">
           <div>
             <h1 class="text-3xl font-bold font-weight-bold">YAML変換</h1>
-            <p>ドラッグアンドドロップでAnsibleのプレイブックが作れます</p>
+            <p><FontAwesomeIcon icon="fa-solid fa-power-off" />ドラッグアンドドロップでAnsibleのプレイブックが作れます</p>
           </div>
         </section>
         <section class="my-10">
@@ -117,7 +130,7 @@ function App() {
             <div class="flex">
               <DragDropContext onDragEnd={onDragEnd}>
                   {data.map((section) => (
-                    <Droppable key={section.name} droppableId={section.name}>
+                    <Droppable key={section.id} droppableId={section.id}>
                       {(provided) => (
                         <div class="basis-1/2 ">
                         <p class="font-bold mt-10 ml-5">{section.name}</p>
@@ -127,8 +140,8 @@ function App() {
                         >
                           {section.tasks.map((task, index) => (
                               <Draggable
-                                key={task.name}
-                                draggableId={task.name}
+                                key={task.id}
+                                draggableId={task.id}
                                 index={index}
                               >
                                 {(provided, snapshot) => (
@@ -141,7 +154,7 @@ function App() {
                                       opacity: snapshot.isDragging ? "0.5" : "1",
                                     }}
                                   >
-                                    <Card>{task.title}</Card>
+                                    <Card icon={task.icon} name={task.tag}></Card>
                                   </div>
                                 )}
                               </Draggable>
@@ -164,6 +177,7 @@ function App() {
         <BugReport />
         <Footer />
       </div>
+      <script defer src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
     </>
   );
 }
