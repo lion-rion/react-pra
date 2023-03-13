@@ -2,21 +2,21 @@ import { v4 as uuidv4 } from "uuid";
 
 const DummyData = [
   {
-    id: uuidv4(),
+    hosts: "192.168.0.0",
     name: "✏️ 入力スペース",
     tasks: [
       {
-        id: uuidv4(),
-        tag: "1",
+        hosts: uuidv4(),
+        tag: "Apache2をインストール",
         icon: "fa-power-off",
         apt: {
-        name: "apache2",
-        state: "present"
-      }
+          name: "apache2",
+          state: "present"
+        }
         
       },
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "fa-power-off",
         name: "b",
         title: '111',
@@ -24,23 +24,23 @@ const DummyData = [
     ],
   },
   {
-    id: uuidv4(),
+    hosts: uuidv4(),
     name: "⚠️ 電源操作",
     tasks: [
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "faPowerOff",
         name: "d",
         title: "読書",
       },
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "faPowerOff",
         name: "e",
         title: "aaa",
       },
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "faPowerOff",
         name: "f",
         title: "bbb",
@@ -48,23 +48,23 @@ const DummyData = [
     ],
   },
   {
-    id: uuidv4(),
+    hosts: uuidv4(),
     name: "⚡️ インストール",
     tasks: [
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "faPowerOff",
         name: "d",
         title: "読書",
       },
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "faPowerOff",
         name: "e",
         title: "aaa",
       },
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "faPowerOff",
         name: "f",
         title: "bbb",
@@ -72,23 +72,23 @@ const DummyData = [
     ],
   },
   {
-    id: uuidv4(),
+    hosts: uuidv4(),
     name: "⚙️ 設定",
     tasks: [
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "faPowerOff",
         name: "d",
         title: "読書",
       },
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "faPowerOff",
         name: "e",
         title: "aaa",
       },
       {
-        id: uuidv4(),
+        hosts: uuidv4(),
         icon: "faPowerOff",
         name: "f",
         title: "bbb",

@@ -30,8 +30,8 @@ function App() {
 
     //別のカラムに移動したとき
     if (source.droppableId !== destination.droppableId) {
-      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
-      const destColIndex = data.findIndex((e) => e.id === destination.droppableId);
+      const sourceColIndex = data.findIndex((e) => e.hosts === source.droppableId);
+      const destColIndex = data.findIndex((e) => e.hosts === destination.droppableId);
 
       const sourceCol = data[sourceColIndex];
       const destCol = data[destColIndex];
@@ -51,7 +51,7 @@ function App() {
       window.localStorage.setItem("js-data",  JSON.stringify(data));
     } else {
       //同じカラム内でのタスクの入れ替え
-      const sourceColIndex = data.findIndex((e) => e.id === source.droppableId);
+      const sourceColIndex = data.findIndex((e) => e.hosts === source.droppableId);
 
       const sourceCol = data[sourceColIndex];
 
@@ -75,7 +75,7 @@ function App() {
     const updatedData = data.map(item => {
       // `item`オブジェクトのコピーを作成し、`tasks`配列の要素の`id`プロパティを削除する
       const updatedTasks = item.tasks.map(task => {
-        const { id,icon,tag, ...taskWithoutId } = task;
+        const { hosts,icon,tag, ...taskWithoutId } = task;
         return taskWithoutId;
       });
     
@@ -104,7 +104,7 @@ function App() {
       <div class="container py-12 mb-10 px-lg-4 px-xl-12 ">
         <section class="my-10">
           <div>
-            <h1 class="text-3xl font-bold font-weight-bold">YAML変換</h1>
+            <h1 class="text-3xl font-bold font-weight-bold">Ansible-DnD</h1>
             <p><FontAwesomeIcon icon="fa-solid fa-power-off" />ドラッグアンドドロップでAnsibleのプレイブックが作れます</p>
           </div>
         </section>
@@ -134,7 +134,7 @@ function App() {
             <div class="flex">
               <DragDropContext onDragEnd={onDragEnd}>
                   {data.map((section) => (
-                    <Droppable key={section.id} droppableId={section.id}>
+                    <Droppable key={section.hosts} droppableId={section.hosts}>
                       {(provided) => (
                         <div class="basis-1/2 ">
                         <p class="font-bold mt-10 ml-5">{section.name}</p>
@@ -144,8 +144,8 @@ function App() {
                         >
                           {section.tasks.map((task, index) => (
                               <Draggable
-                                key={task.id}
-                                draggableId={task.id}
+                                key={task.hosts}
+                                draggableId={task.hosts}
                                 index={index}
                               >
                                 {(provided, snapshot) => (
