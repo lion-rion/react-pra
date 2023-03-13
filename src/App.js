@@ -104,7 +104,7 @@ function App() {
       <div class="container py-12 mb-10 px-lg-4 px-xl-12 ">
         <section class="my-10">
           <div>
-            <h1 class="text-3xl font-bold font-weight-bold">Ansible-DnD</h1>
+            <h1 class="text-3xl font-bold font-weight-bold">Ansible-dnd</h1>
             <p><FontAwesomeIcon icon="fa-solid fa-power-off" />ドラッグアンドドロップでAnsibleのプレイブックが作れます</p>
           </div>
         </section>
